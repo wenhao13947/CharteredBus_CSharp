@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="connStr-Web.config Connection String" description="connStr 由应用程序在 web.config 中用来访问数据库的连接字符串。" defaultValue="server=220.172.120.185; database=pt_0853; uid=teststation; pwd=idiw" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="F:\\MyDocument\\Projects\\NetWeb\\CharteredBus\\CharteredBus\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='connStr']/@connectionString" />
+  </parameter>
+</parameters>

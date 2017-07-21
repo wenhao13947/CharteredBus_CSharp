@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <title></title>
+    <script src="http://apps.bdimg.com/libs/jquery/1.7.1/jquery.js"></script>
+    <script>
+        $(function () {
+            $('#btnGetIndex').click(function () {
+                $.get('api/GetIndex/GetIndex', function (res) {
+                    console.log(JSON.parse(res))
+                }, 'json');
+            });
+            $('#btnGetTableById').click(function () {
+                $.get('api/GetIndex/GetTableById/532442', function (res) {
+                    console.log(JSON.parse(res))
+                }, 'json');
+            });
+            $('#btnBtnSearch').click(function () {
+                $.get('api/GetIndex/GetTableById/0189', function (res) {
+                    console.log(JSON.parse(res))
+                }, 'json');
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="button" id="btnGetIndex" name="name" value="btnGetIndex" />
+    <input type="button" id="btnGetTableById" name="name" value="btnGetTableById" />
+    <input type="button" id="btnBtnSearch" name="name" value="btnBtnSearch" />
+    <input type="button" id="btn" name="name" value="" />
+    <input type="button" id="btn" name="name" value="" />
+    <input type="button" id="btn" name="name" value="" />
+    <input type="button" id="btn" name="name" value="" />
+</body>
+</html>
+
+企业名称
+车牌号码
+申请编号
+区域类型
+审核状态
+有效期起
+有效期止
+行程天数
+起点
+终点
+途经线路
+经营范围
+往返里程数
+回城载客
+上报日期
+办理日期
+申请人
+车辆经营范围 
+管理单位
+审核人员
+牌证编号
