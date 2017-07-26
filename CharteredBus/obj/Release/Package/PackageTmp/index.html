@@ -21,6 +21,17 @@
                     console.log(JSON.parse(res))
                 }, 'json');
             });
+            $('#btnLogin').click(function () {
+                //$.get('api/GetIndex/Login/?userName=assjhct2&pwd=123456', function (res) {
+                $.post('api/GetIndex/Login', {userName: "assjhct2", pwd: "123456"}, function (res) {
+                    console.log(JSON.parse(res))
+                }, 'json');
+            });
+            $('#btnGetIndexById').click(function () {
+                $.get('api/GetIndex/GetIndexById/1995', function (res) {
+                    console.log(JSON.parse(res))
+                }, 'json');
+            });
         });
     </script>
 </head>
@@ -28,8 +39,8 @@
     <input type="button" id="btnGetIndex" name="name" value="btnGetIndex" />
     <input type="button" id="btnGetTableById" name="name" value="btnGetTableById" />
     <input type="button" id="btnBtnSearch" name="name" value="btnBtnSearch" />
-    <input type="button" id="btn" name="name" value="" />
-    <input type="button" id="btn" name="name" value="" />
+    <input type="button" id="btnLogin" name="name" value="btnLogin" />
+    <input type="button" id="btnGetIndexById" name="name" value="btnGetIndexById" />
     <input type="button" id="btn" name="name" value="" />
     <input type="button" id="btn" name="name" value="" />
 </body>

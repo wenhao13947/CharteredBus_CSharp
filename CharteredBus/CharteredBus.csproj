@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\DataTableConvertJson.cs" />
+    <Compile Include="Common\UserInfo.cs" />
     <Compile Include="Controllers\GetIndexController.cs" />
     <Compile Include="DAL\SqlHelper.cs" />
     <Compile Include="Global.asax.cs">

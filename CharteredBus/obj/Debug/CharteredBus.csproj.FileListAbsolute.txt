@@ -42,3 +42,4 @@ F:\MyDocument\Projects\NetWeb\CharteredBus\CharteredBus\bin\zh-Hans\System.Web.H
 F:\MyDocument\Projects\NetWeb\CharteredBus\CharteredBus\bin\zh-Hans\System.Web.Http.WebHost.resources.dll
 F:\MyDocument\Projects\NetWeb\CharteredBus\CharteredBus\obj\Debug\CharteredBus.dll
 F:\MyDocument\Projects\NetWeb\CharteredBus\CharteredBus\obj\Debug\CharteredBus.pdb
+F:\MyDocument\Projects\NetWeb\CharteredBus\CharteredBus\obj\Debug\CharteredBus.csprojResolveAssemblyReference.cache

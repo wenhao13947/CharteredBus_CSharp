@@ -14,8 +14,9 @@ namespace CharteredBus.Controllers
         public string GetIndex()
         {
             //string sqlStr = "select top 20 (select enterprise from tenterprise where id=enterpriseID) as '企业名称', carcode as '车牌号码', jobid as '申请编号', countyType as '区域类型', [status] as '审核状态', startDate as '有效期起', endDate as '有效期止', startzone as '起点', endzone as '终点', passLine as '途经线路', carCountyType as '经营范围', mileage as '往返里程数', jobdate as '上报日期', attachCounty as '管理单位', decide as '审核人员', printNumber as '牌证编号' from tjobs_travel order by jobdate desc";
-            string sqlStr = @"select top 20 (select enterprise from tenterprise where id=enterpriseID) as 'enterprise', carcode as 'carCode', jobid as 'jobId', countyType as 'countryType', [status] as 'status', cast(datepart(yy, startDate)as nvarchar)+'年'+cast(datepart(mm,startDate) as nvarchar)+ '月'+cast(datepart(dd,startDate) as nvarchar)+'日' as 'startDate', cast(datepart(yy, endDate)as nvarchar)+'年'+cast(datepart(mm,endDate) as nvarchar)+ '月'+cast(datepart(dd,endDate) as nvarchar)+'日' as 'endDate', startzone as 'startZone', endzone as 'endZone', passLine as 'passLine', carCountyType as 'carCountryType', mileage as 'mileage', jobdate as 'jobDate', attachCounty as 'attachCounty', decide as 'decide', printNumber as 'printNumber',driver1Name as 'driver1Name',driver2Name as 'driver2Name' from tjobs_travel order by jobdate desc";
+            //string sqlStr = @"select top 20 (select enterprise from tenterprise where id=enterpriseID) as 'enterprise', carcode as 'carCode', jobid as 'jobId', countyType as 'countryType', [status] as 'status', cast(datepart(yy, startDate)as nvarchar)+'年'+cast(datepart(mm,startDate) as nvarchar)+ '月'+cast(datepart(dd,startDate) as nvarchar)+'日' as 'startDate', cast(datepart(yy, endDate)as nvarchar)+'年'+cast(datepart(mm,endDate) as nvarchar)+ '月'+cast(datepart(dd,endDate) as nvarchar)+'日' as 'endDate', startzone as 'startZone', endzone as 'endZone', passLine as 'passLine', carCountyType as 'carCountryType', mileage as 'mileage', jobdate as 'jobDate', attachCounty as 'attachCounty', decide as 'decide', printNumber as 'printNumber',driver1Name as 'driver1Name',driver2Name as 'driver2Name' from tjobs_travel order by jobdate desc";
             //SqlHelper.GetCommand(SqlHelper.SqlConnString(), null, sqlStr, null);
+            string sqlStr = @"select top 100 (select enterprise from tenterprise where id=enterpriseID) as 'enterprise', carcode as 'carCode', jobid as 'jobId', cast(datepart(yy, startDate)as nvarchar)+'年'+cast(datepart(mm,startDate) as nvarchar)+ '月'+cast(datepart(dd,startDate) as nvarchar)+'日' as 'startDate', cast(datepart(yy, endDate)as nvarchar)+'年'+cast(datepart(mm,endDate) as nvarchar)+ '月'+cast(datepart(dd,endDate) as nvarchar)+'日' as 'endDate', startzone as 'startZone', endzone as 'endZone', jobdate as 'jobDate', case when printNumber is NULL then '(未打印)' else printNumber end as 'printNumber',driver1Name as 'driver1Name',driver2Name as 'driver2Name' from tjobs_travel order by jobdate desc";
             DataTable dt = SqlHelper.GetDataTable(sqlStr, null);
             return DataTableConvertJson.DataTableToJson1(dt);
         }
@@ -47,6 +48,49 @@ from tjobs_travel where jobid=" + id;
         public string BtnSearch(string carCode)
         {
             string sqlStr = @"select (select enterprise from tenterprise where id=enterpriseID) as 'enterprise', carcode as 'carCode', jobid as 'jobId', cast(datepart(yy, startDate)as nvarchar)+'年'+cast(datepart(mm,startDate) as nvarchar)+ '月'+cast(datepart(dd,startDate) as nvarchar)+'日' as 'startDate', cast(datepart(yy, endDate)as nvarchar)+'年'+cast(datepart(mm,endDate) as nvarchar)+ '月'+cast(datepart(dd,endDate) as nvarchar)+'日' as 'endDate', startzone as 'startZone', endzone as 'endZone', jobdate as 'jobDate', printNumber as 'printNumber',driver1Name as 'driver1Name',driver2Name as 'driver2Name' from tjobs_travel where carcode like '%"+ carCode + "%' order by jobdate desc";
+            DataTable dt = SqlHelper.GetDataTable(sqlStr, null);
+            return DataTableConvertJson.DataTableToJson1(dt);
+        }
+
+        //public string Login(string userName, string pwd)
+        [HttpPost]
+         public int Login(UserInfo user)
+        {
+            string userName = user.UserName.Trim();
+            string pwd = user.Pwd.Trim();            
+            string sqlStr = "select enterpriseid as 'enterpriseId', passwd as 'pwd' from [dbo].[tOperator] where loginName=" + "'"+ userName+"'";
+            DataTable dt = SqlHelper.GetDataTable(sqlStr, null);
+            string passWord = dt.Rows[0][1].ToString();
+            if (pwd == passWord)
+            {
+                return int.Parse(dt.Rows[0][0].ToString());
+            }
+            else
+            {
+                //表示登录不成功
+                return 0;
+            }
+        } 
+        public string GetIndexById(int id)
+        {
+            string sqlStr = @"select top 100 (select enterprise from tenterprise where id=enterpriseID) as 'enterprise', carcode as 'carCode', jobid as 'jobId', cast(datepart(yy, startDate)as nvarchar)+'年'+cast(datepart(mm,startDate) as nvarchar)+ '月'+cast(datepart(dd,startDate) as nvarchar)+'日' as 'startDate', cast(datepart(yy, endDate)as nvarchar)+'年'+cast(datepart(mm,endDate) as nvarchar)+ '月'+cast(datepart(dd,endDate) as nvarchar)+'日' as 'endDate', startzone as 'startZone', endzone as 'endZone', jobdate as 'jobDate', case when printNumber is NULL then '(未打印)' else printNumber end as 'printNumber',driver1Name as 'driver1Name',driver2Name as 'driver2Name' from tjobs_travel where enterpriseID=" + id + "order by jobdate desc";
+            //string sqlStr = @"select (select enterprise from tenterprise where id=enterpriseID) as 'enterprise', carcode as 'carCode', jobid as 'jobId', cast(datepart(yy, startDate)as nvarchar)+'年'+cast(datepart(mm,startDate) as nvarchar)+ '月'+cast(datepart(dd,startDate) as nvarchar)+'日' as 'startDate', cast(datepart(yy, endDate)as nvarchar)+'年'+cast(datepart(mm,endDate) as nvarchar)+ '月'+cast(datepart(dd,endDate) as nvarchar)+'日' as 'endDate', startzone as 'startZone', endzone as 'endZone', jobdate as 'jobDate', printNumber as 'printNumber',driver1Name as 'driver1Name',driver2Name as 'driver2Name' from tjobs_travel where enterpriseID="+id;
+            DataTable dt = SqlHelper.GetDataTable(sqlStr, null);
+            return DataTableConvertJson.DataTableToJson1(dt);
+        }
+
+        public string GetUser(int id)
+        {
+            string sqlStr = @"select operatorName,[role],lastLoginDate from dbo.tOperator where active='1' and enterpriseid=" + id;
+            DataTable dt = SqlHelper.GetDataTable(sqlStr, null);
+            return DataTableConvertJson.DataTableToJson1(dt);
+        }
+
+        public string GetValid(int id)
+        {
+            string sqlStr = @"select enterprise,cast(datepart(yy, useEndDate)as nvarchar)+'年'+cast(datepart(mm,useEndDate) as nvarchar)+ '月'+cast(datepart(dd,useEndDate) as nvarchar)+'日' as 'useEndDate' ,
+                cast(datepart(yy, useEndDate_travel)as nvarchar)+'年'+cast(datepart(mm,useEndDate_travel) as nvarchar)+ '月'+cast(datepart(dd,useEndDate_travel) as nvarchar)+'日' as 'useEndDate_travel' 
+                from tenterprise where id=" + id;
             DataTable dt = SqlHelper.GetDataTable(sqlStr, null);
             return DataTableConvertJson.DataTableToJson1(dt);
         }
